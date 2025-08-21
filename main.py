@@ -9,13 +9,14 @@ from minio import Minio
 from minio.error import S3Error
 import io, secrets
 from uuid import uuid4
+import os
 
 # MinIO Configuration
-MINIO_ENDPOINT = "localhost:5001"  # endpoint MinIO
-MINIO_ACCESS_KEY = "minioadmin"
-MINIO_SECRET_KEY = "minioadmin"
-MINIO_BUCKET = "fields-bucket"
-MINIO_SECURE = False
+MINIO_ENDPOINT = os.getenv("MINIO_ENDPOINT", "minio:9000")
+MINIO_ACCESS_KEY = os.getenv("MINIO_ACCESS_KEY", "minioadmin")
+MINIO_SECRET_KEY = os.getenv("MINIO_SECRET_KEY", "minioadmin")
+MINIO_BUCKET = os.getenv("MINIO_BUCKET", "fields-bucket")
+MINIO_SECURE = os.getenv("MINIO_SECURE", "false").lower() == "true"
 
 # Initialize MinIO client
 minio_client = Minio(
